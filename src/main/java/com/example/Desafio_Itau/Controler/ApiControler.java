@@ -1,6 +1,7 @@
 package com.example.Desafio_Itau.Controler;
 
 
+import com.example.Desafio_Itau.Service.EstatisticaService;
 import com.example.Desafio_Itau.models.TransacaoDTO;
 import com.example.Desafio_Itau.models.EstatisticaDTO;
 import com.example.Desafio_Itau.Service.ApiService;
@@ -21,6 +22,9 @@ public class ApiControler {
     @Autowired
     private ApiService apiService;
 
+    @Autowired
+    private EstatisticaService estatisticaService;
+
     @PostMapping(value= "/transacao")
     @Operation(description="Endpoint responsável por adicionar transações.")
     @ApiResponses(value={
@@ -31,7 +35,7 @@ public class ApiControler {
     })
     public ResponseEntity addTransacao(@RequestBody @Valid TransacaoDTO transacao){
         apiService.addData(transacao);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 
@@ -55,21 +59,7 @@ public class ApiControler {
             @ApiResponse(responseCode = "400", description = "Erro de Busca de Estatísticas"),
             @ApiResponse(responseCode = "500", description = "Erro Interno")
     })
-    public ResponseEntity estatisticas(@RequestParam(required = false, defaultValue = "60") Integer time ){
-        List<TransacaoDTO> recorte = apiService.getStats(time);
-        DoubleSummaryStatistics stats = recorte.stream().mapToDouble(TransacaoDTO::value).summaryStatistics();
-
-        if(recorte.isEmpty()){
-            return  ResponseEntity.status(HttpStatus.OK).body(new EstatisticaDTO(0L, (double) 0, (double) 0, (double) 0, (double) 0));
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).body(new EstatisticaDTO(
-                stats.getCount(),
-                stats.getSum(),
-                stats.getAverage(),
-                stats.getMin(),
-                stats.getMax())
-        );
-
+    public ResponseEntity<EstatisticaDTO> estatisticas(@RequestParam(required = false, defaultValue = "60") Integer time ){
+       return ResponseEntity.status(HttpStatus.OK).body(estatisticaService.estatisticas(time));
     }
 }

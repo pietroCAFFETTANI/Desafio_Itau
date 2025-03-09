@@ -16,7 +16,7 @@ import java.util.*;
 public class ApiService {
     private List<TransacaoDTO> lista = new ArrayList<>();
 
-    public ResponseEntity addData(TransacaoDTO transacao){
+    public void addData(TransacaoDTO transacao){
 
         log.info("Inicio do processo de adicionar transação");
         if(transacao.dateTime().isAfter(OffsetDateTime.now())){
@@ -28,7 +28,6 @@ public class ApiService {
             throw new UnprocessableEntity("");
         }
         lista.add(transacao);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     public void deleteData(){
