@@ -1,13 +1,17 @@
 # Desafio Itau
 
 Este é um projeto de uma API que gerencia transações financeiras e calcula estatísticas relacionadas a essas transações.
+## Inspiração
 
-## Tecnologias Utilizadas
+O desafio deste projeto foi inspirado no repositório [Desafio Itau Vaga 99 Junior](https://github.com/rafaellins-itau/desafio-itau-vaga-99-junior).
 
-- Java 21
-- Spring Boot
-- Swagger (Documentação API)
-- Spring Actuator (health, metrics, info)
+## Ferramentas Utilizadas
+
+- **Java** ☕: Linguagem de programação utilizada no desenvolvimento do projeto.
+- **Spring Boot** 🚀: Framework utilizado para desenvolvimento da aplicação.
+- **Spring Actuator** ⚙️: Usado para monitoramento da aplicação, incluindo endpoints de health e metrics.
+- **Swagger** 📜: Utilizado para gerar e documentar a API.
+- **Testes Unitários** 🧪: Implementados com JUnit e Mockito para garantir o funcionamento correto da aplicação.
 
 
 ## Endpoints da API
